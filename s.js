@@ -5,20 +5,43 @@ $.seed = (seed) => {
 	let _seed = seed;
 	return () => {
 	    var rnd = Math.sin(_seed++) * 10000
-		return rnd - Math.floor(rnd)
+	    var s = (rnd - Math.floor(rnd))
+		return String(Math.floor(s*100000)).split('')
 	}
 }
 
-let s = $.seed(1234);
+let s = $.seed(8974895745);
+
+// Tiles
+let tiles = [
+	'27AE60',
+	'ECDCB8',
+	'BB8044',
+	'ACB8B8'
+]
+
+let getTileColorForSeed = (s) => {
+	console.log('s:', s)
+	s = s[0]
+	if (s[0] < 2) {
+		return tiles[3]
+	} else if (s[0] < 4) {
+		return tiles[2]
+	} else if (s[0] < 6) {
+		return tiles[1]
+	}
+	return tiles[0]
+}
 
 // Generate grid styles
-var styles = '';
+var styles = 'body{text-align:center;}';
 var rows = 10
 var cols = 10
 for (var j = 1; j <= 10; j++) {
 	styles += '.g' + j + ' use {transition:fill .2s,transform .2s;}'
 	for (var i = 1; i <= 10; i++) {
-		styles += `.g${j} use:nth-child(${i}) {fill: #606EC3; transform: rotate(30deg) translate(${36 * (i - 1) - 18 * j}px, ${31.1736 * (j - 1)}px);}.g${j} use:nth-child(${i}):hover{fill:#998cd4;}`
+		var fill = getTileColorForSeed(s())
+		styles += `.g${j} use:nth-child(${i}) {fill: #${fill}; transform: rotate(30deg) translate(${36 * (i - 1) - 18 * j}px, ${31.1736 * (j - 1)}px);}.g${j} use:nth-child(${i}):hover{fill:#998cd4;}`
 	}
 }
 
