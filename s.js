@@ -10,27 +10,24 @@ $.seed = (seed) => {
 	}
 }
 
-let s = $.seed(8974895745);
+let s = $.seed(4895745123);
 
-// Tiles
-let tiles = [
-	'27AE60',
-	'ECDCB8',
-	'BB8044',
-	'ACB8B8'
+// Tiles.
+// [color, walkable]
+let grass = ['27AE60', 1]
+let sand = ['ECDCB8', 1]
+let dirt = ['BB8044', 1]
+let gravel = ['ACB8B8', 1]
+let tileProbability = [
+	grass,
+	grass,
+	sand,
+	dirt,
+	gravel
 ]
 
 let getTileColorForSeed = (s) => {
-	console.log('s:', s)
-	s = s[0]
-	if (s[0] < 2) {
-		return tiles[3]
-	} else if (s[0] < 4) {
-		return tiles[2]
-	} else if (s[0] < 6) {
-		return tiles[1]
-	}
-	return tiles[0]
+	return tileProbability[Math.floor(s[0] * tileProbability.length / 10)][0]
 }
 
 // Generate grid styles
