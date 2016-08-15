@@ -28,8 +28,8 @@ let s = $.seed(4895745123),
 		water
 	],
 
-	getTileColorForSeed = (s) => {
-		return tileProbability[Math.floor(s[0] * tileProbability.length / 10)][0]
+	getTileForSeed = (s) => {
+		return tileProbability[Math.floor(s[0] * tileProbability.length / 10)]
 	},
 
 	// Generate grid styles
@@ -37,13 +37,16 @@ let s = $.seed(4895745123),
 
 	rows = 10,
 
-	cols = 10
+	cols = 10,
+
+	board = []
 
 for (var j = 1; j <= 10; j++) {
 	styles += '.g' + j + ' use {transition:fill .2s,transform .2s;}'
 	for (var i = 1; i <= 10; i++) {
-		var fill = getTileColorForSeed(s())
-		styles += `.g${j} use:nth-child(${i}) {fill: #${fill}; transform: rotate(30deg) translate(${36 * (i - 1) - 18 * j}px, ${31.1736 * (j - 1)}px);}.g${j} use:nth-child(${i}):hover{fill:#998cd4;}`
+		board[j] = board[j] || []
+		board[j][i] = getTileForSeed(s())
+		styles += `.g${j} use:nth-child(${i}) {fill: #${board[j][i][0]}; transform: rotate(30deg) translate(${36 * (i - 1) - 18 * j}px, ${31.1736 * (j - 1)}px);}.g${j} use:nth-child(${i}):hover{fill:#998cd4;}`
 	}
 }
 
