@@ -42,17 +42,17 @@ let s = $.seed(4895745123),
 	board = [],
 
 	// TODO: Calculate these for each tile instead.
-	playerX = 350,
-	playerY = 350
+	playerX = 323,
+	playerY = 340
 
 for (var j = 1; j <= 10; j++) {
-	styles += '.g' + j + ' use {transition:fill .2s,transform .2s;}'
+	styles += `.g${j} use {transition:fill .2s,transform .2s;}
+.p use{transform:translate(${playerX}px,${playerY}px);}`
 	for (var i = 1; i <= 10; i++) {
 		board[j] = board[j] || []
 		board[j][i] = getTileForSeed(s())
 		styles += `.g${j} use:nth-child(${i}){fill: #${board[j][i][0]};transform:rotate(30deg) translate(${36 * (i - 1) - 18 * j}px,${31.1736 * (j - 1)}px);}
-		.g${j} use:nth-child(${i}):hover{fill:#998cd4;}
-		.p${j}-${i} use{transform:translate(${playerX}px,${playerY}px);}`
+		.g${j} use:nth-child(${i}):hover{fill:#998cd4;}`
 	}
 }
 
@@ -81,7 +81,7 @@ for (var j = 1; j <= cols; j++) {
 	}
 	board += `</g>`
 }
-board += `<g class="p5-5"><use xlink:href="#p"/></g>
+board += `<g class="p"><use xlink:href="#p"/></g>
 </svg>`
 
 document.body.innerHTML = board
