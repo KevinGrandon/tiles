@@ -18,12 +18,14 @@ let grass = ['27AE60', 1]
 let sand = ['ECDCB8', 1]
 let dirt = ['BB8044', 1]
 let gravel = ['ACB8B8', 1]
+let water = ['157DA8', 0]
 let tileProbability = [
 	grass,
 	grass,
 	sand,
 	dirt,
-	gravel
+	gravel,
+	water
 ]
 
 let getTileColorForSeed = (s) => {
