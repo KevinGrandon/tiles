@@ -10,32 +10,35 @@ $.seed = (seed) => {
 	}
 }
 
-let s = $.seed(4895745123);
+let s = $.seed(4895745123),
 
-// Tiles.
-// [color, walkable]
-let grass = ['27AE60', 1]
-let sand = ['ECDCB8', 1]
-let dirt = ['BB8044', 1]
-let gravel = ['ACB8B8', 1]
-let water = ['157DA8', 0]
-let tileProbability = [
-	grass,
-	grass,
-	sand,
-	dirt,
-	gravel,
-	water
-]
+	// Tiles.
+	// [color, walkable]
+	grass = ['27AE60', 1],
+	sand = ['ECDCB8', 1]
+	dirt = ['BB8044', 1]
+	gravel = ['ACB8B8', 1]
+	water = ['157DA8', 0]
+	tileProbability = [
+		grass,
+		grass,
+		sand,
+		dirt,
+		gravel,
+		water
+	],
 
-let getTileColorForSeed = (s) => {
-	return tileProbability[Math.floor(s[0] * tileProbability.length / 10)][0]
-}
+	getTileColorForSeed = (s) => {
+		return tileProbability[Math.floor(s[0] * tileProbability.length / 10)][0]
+	},
 
-// Generate grid styles
-var styles = 'body{text-align:center;}';
-var rows = 10
-var cols = 10
+	// Generate grid styles
+	styles = 'body{text-align:center;}',
+
+	rows = 10,
+
+	cols = 10
+
 for (var j = 1; j <= 10; j++) {
 	styles += '.g' + j + ' use {transition:fill .2s,transform .2s;}'
 	for (var i = 1; i <= 10; i++) {
@@ -45,14 +48,14 @@ for (var j = 1; j <= 10; j++) {
 }
 
 
-var board = `<style>${styles}</style><svg width="800" height="800" viewBox="0 0 800 800">
+var board = `<style>${styles}</style><svg width="800" height="800">
 <defs>
-  <rect id="basic" x="400" y="0" width="36" height="31.1736" transform="skewX(-30)" />
+  <rect id="t" x="400" y="0" width="36" height="31.1736" transform="skewX(-30)" />
 </defs>`
 for (var j = 1; j <= cols; j++) {
 	board += `<g class="g${j}">`
 	for (var i = 1; i <= rows; i++) {
-		board += `<use xlink:href="#basic" />`
+		board += `<use xlink:href="#t" />`
 	}
 	board += `</g>`
 }
